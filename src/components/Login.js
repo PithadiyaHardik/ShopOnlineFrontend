@@ -1,12 +1,16 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import styled from "styled-components";
 import { Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form } from "react-bootstrap";
 import axios from 'axios';
 import img from "./logo.png";
+import {useHistory,Link} from 'react-router-dom'
+import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
 
 const Login = () => {
+  const setAuthenticatedContext=useContext(SetAuthenticatedContext)
+  const history=useHistory();
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
 
@@ -28,8 +32,14 @@ const Login = () => {
       await axios.post('http://localhost:8888/api/login',{email:email,password:password}).then(res=>{
         if(res.data.status)
         {
-          window.sessionStorage.login=true
-          window.location.href='/';
+          // window.sessionStorage.login=true
+          // window.location.href='/';
+          // window.localStorage.setItem("loggedin",true)
+          setAuthenticatedContext(true);
+          window.localStorage.setItem("email",email);
+          window.localStorage.setItem("firstname",res.data.firstname);
+          window.localStorage.setItem("lastname",res.data.lastname);
+          history.push("/")
         }
         else{
           alert("INVALID EMAIL OR PASSWORD!!")
@@ -53,7 +63,7 @@ const Login = () => {
         placeholder="Password"
       />
       <Button variant="outline-primary" onClick={submitHandle}>LOG IN</Button>
-      <a href='/Signup'>Signup</a>
+      {/* <div as={Link} to={"/SignUp"}>Signup</div> */}
     </Container>
   );
 };

@@ -8,13 +8,13 @@ const Slider = () => {
         <div style={{padding:'10px'}}>
             <Carousel variant='dark' style={{width:'100%'}}>
                 <Carousel.Item interval={5000}>
-                    <img src={i1} style={{height:'60vh',width:'100%'}}/>
+                    <img src={i1} style={{height:'70vh',width:'100%'}}/>
                 </Carousel.Item>
                 <Carousel.Item interval={5000}>
-                    <img src={i2}  style={{height:'60vh',width:'100%'}}/>
+                    <img src={i2}  style={{height:'70vh',width:'100%'}}/>
                 </Carousel.Item>
                 <Carousel.Item interval={5000}>
-                    <img src={i3}  style={{height:'60vh',width:'100%'}}/>
+                    <img src={i3}  style={{height:'70vh',width:'100%'}}/>
                 </Carousel.Item>
             </Carousel>
             

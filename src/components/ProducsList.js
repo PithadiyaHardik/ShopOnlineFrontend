@@ -8,6 +8,14 @@ import axios from 'axios'
 
 const ProducsList = () => {
   const [products,setProducts]=useState([])
+
+  // useEffect(async ()=>{
+  //     await axios.get("http://localhost:88888/api/allProduct").then(res=>setProducts(res.data))
+
+  // },[])
+
+
+
   // useEffect(()=>{
   //   let productlist=await axios.get('localhost:8888')
   // },[])

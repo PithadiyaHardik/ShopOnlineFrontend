@@ -1,10 +1,14 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form } from "react-bootstrap";
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
+import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
 
 const Signup = () => {
+    const history=useHistory();
+    const setAuthenticatedContext=useContext(SetAuthenticatedContext)
     const [firstname,setFirstname]=useState("")
     const [middlename,setMiddlename]=useState("")
     const [lastname,setLastname]=useState("")
@@ -36,22 +40,31 @@ const Signup = () => {
     }
     else{
         setPassword(event.target.value)
-        console.log('password')
     }
 
   }
 
   const submitHandle=async ()=>{
-      if(email!="")
+    console.log("Password:"+password)
+      console.log(firstname+" "+middlename+" "+lastname+" "+email+" "+password+""+phone)
+      if(email!=""&&firstname!=""&&lastname!=""&&middlename!=""&&password!=""&& phone!="")
       {
     await axios.post('http://localhost:8888/api/register',{first_name:firstname,last_name:lastname,middle_name:middlename,phone_number:phone,email:email,password:password}).then(res=>{
         console.log(res.data)
-        if(res.data.result)
+        if(res.data.result==="success")
         {
-          window.location.href='/';
+          // window.location.href='/';
+          // window.localStorage.setItem("loggedin",true)
+          setAuthenticatedContext(true);
+          window.localStorage.setItem("email",email);
+          window.localStorage.setItem("firstname",firstname);
+          window.localStorage.setItem("lastname",lastname);
+          history.push("/")
+        
+
         }
         else{
-          alert("INVALID")
+          alert("INVALID INFORMATION PLEASE TRY AGAIN!!!")
         }
       })
     }
@@ -63,7 +76,7 @@ const Signup = () => {
 
 
   return (
-    <Container>
+    <Container className='shadow'>
       <div
         className="row"
         style={{
@@ -89,6 +102,7 @@ const Signup = () => {
           type="text"
           placeholder="Middlename"
           className="col"
+          id="middlename"
           onChange={handleChange}
           style={{ margin: "10px" }}
         />
@@ -157,13 +171,13 @@ export default Signup;
 const Container = styled.div`
   margin: auto;
   width: 50vw;
+  padding:15px;
   background-color: white;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   @media only screen and (max-width: 600px) {
     width:50vw
 `;
