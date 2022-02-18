@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useEffect,useState,useContext} from "react";
 import styled from "styled-components";
 import img from "./electronics.jpg";
 import { Card,Button, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import {AuthenticateContext} from '../App.js'
 
 const Productdetails = () => {
+  const authenticate =useContext(AuthenticateContext)
+  console.log(authenticate)
+  const [product,setProduct]=useState({});
+  const [reviewText,setText]=useState();
+  const [review,setReview]=useState([]);
   const {id}=useParams()
-  console.log(id)
+  useEffect(async ()=>{
+   await axios.get("http://localhost:8888/api/getProductDetails/"+id).then(res=>{setProduct(res.data.data);setReview(res.data.data.reviews)})
+   .catch(e=>console.log(e))
+  },[])
+
+  //addReview
+  const addReview=async(e) =>{
+    e.preventDefault()
+    let email=window.localStorage.getItem('email');
+    let newReview={email:email,text:reviewText}
+    await axios.post("http://localhost:8888/api/addReview/"+id,{email:email,review:reviewText})
+    .then(()=>{alert("Thanks for review!!!!!!");setReview(pre=>[...pre,newReview])})
+  }
+
+
+
   return (
     // <Container>
     //   <div style={{ alignText: "start", width: "30vw" }}>
@@ -26,39 +48,50 @@ const Productdetails = () => {
     // </Container>
     <center>
    
-    <Container  >
-      <h3 style={{alignSelf:'start'}}>Product Name</h3>
-      <Productimg src={img} />
-      <p style={{alignSelf:'flex-start'}}>Price:</p>
-      <p style={{alignSelf:'start'}}>Company Name:</p>
-      <p style={{alignSelf:'start'}} >Description: ncjdnndnc ncebcebc becbebceubcebcebcuebcbe</p>
-      <p style={{alignSelf:'start'}}>colour:</p>
-      <p style={{alignSelf:'start'}}>Stock available:</p>
-      <Button style={{alignSelf:'start'}}>Buy Now</Button> 
+    <Container  style={{margin:'2px'}}>
+      <p style={{fontSize:'30px',alignSelf:'start'}}><b>{product.name}</b></p>
+      <Productimg src={"http://localhost:8888/"+product.images} />
+      <p style={{alignSelf:'flex-start',fontSize:'30px'}}><b>{product.price}Rs.</b></p>
+      <p style={{alignSelf:'start',fontSize:'15px'}}><b>Company Name:</b>{product.company}</p>
+      <p style={{alignSelf:'start',fontSize:'15px'}} ><b>Description:</b>{product.description}</p>
+      <p style={{alignSelf:'start',fontSize:'15px'}}><b>Aailable colour:</b>{product.colors}</p>
+      <p style={{alignSelf:'start',fontSize:'15px'}}><b>Stock available:</b>{product.stock}</p>
+      <div style={{alignSelf:'start',display:'flex',justifyContent:'start'}}>
+        <Button variant='success' style={{margin:'3px'}}>Buy Now</Button>
+        <Button variant='primary'style={{margin:'3px'}}>Add to cart</Button>
+      </div> 
     </Container>
-    <ReviewContainer>
-      <h5>Reviews:</h5>
-    <div style={{display:'flex',alignSelf:'start',flexDirection:'column',width:'100%'}}>
-      <p style={{alignSelf:'start'}}>Review text is displayed in this paragraph tag</p>
-      <p style={{alignSelf:'start'}}>email:abcdefg@gmail.com</p>
-      <hr></hr>
-    </div>
-    <div style={{display:'flex',alignSelf:'start',flexDirection:'column',width:'100%'}}>
-      <p style={{alignSelf:'start'}}>Review text is displayed in this paragraph tag</p>
-      <p style={{alignSelf:'start'}}>email:abcdefg@gmail.com</p>
-      <hr></hr>
-    </div>
-    <div style={{display:'flex',alignSelf:'start',flexDirection:'column',width:'100%'}}>
-      <p style={{alignSelf:'start'}}>Review text is displayed in this paragraph tag</p>
-      <p style={{alignSelf:'start'}}>email:abcdefg@gmail.com</p>
-      <hr></hr>
-    </div>
-    <form>
-      <div style={{display:'flex'}}>
-      <input type='text' placeholder='review' className='form-control' style={{backgroundColor:'#e0dede'}}/>
-      <Button type='submit'>Post</Button>
+
+    
+    <ReviewContainer  style={{margin:'4px'}}>
+    <hr/>
+      <h5 style={{alignSelf:'start'}}>Reviews:</h5>
+
+     {review.map(r=>{
+
+       return (
+        <div style={{display:'flex',alignSelf:'start',flexDirection:'column',width:'100%'}}>
+        <div style={{display:'flex',justifyContent:'start',alignItems:'center',fontSize:'18px'}}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+          <div style={{marginLeft:'5px'}}>{r.email}</div></div>
+          <p style={{alignSelf:'start',display:'inline'}}>{r.text}</p>
+        <hr></hr>
       </div>
-    </form>
+       )
+     })} 
+    
+    
+    
+    {window.localStorage.getItem('firstname')!=null?<form>
+      <div style={{display:'flex'}}>
+      <input type='text' onChange={(e)=>setText(e.target.value)} placeholder='review' className='form-control' style={{backgroundColor:'#e0dede'}}/>
+      <Button type='submit' onClick={addReview}>Post</Button>
+      </div>
+    </form>:null}
+    
     </ReviewContainer>
     
     </center>
@@ -74,7 +107,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
-  border:1px solid black;
+  // border:1px solid black;
   text-wrap:wrap;
   height:100%;
 `;

@@ -16,6 +16,7 @@ import Product from "./components/Product";
 import Sidemenu from "./components/Sidemenu";
 import NevigationMenu from "./components/NevigationMenu";
 import AddStock from "./components/AddStock";
+import CartIndicator from "./components/CartIndicator";
 
 export const AuthenticateContext=React.createContext();
 export const SetAuthenticatedContext=React.createContext();
@@ -58,7 +59,7 @@ function App() {
         <i><center><div style={{display:'inline'}}>C2CShopOnline</div>
        </center></i>
         </div>
-        
+        <CartIndicator/>
         <Route exact path="/">
             
           <Slider/>

@@ -88,7 +88,7 @@ const Sidemenu = () => {
             style={{ height: "150px", width: "130px" }}
             alt="React Bootstrap logo"
           />
-            {authenticate?indicator:null}
+            {window.localStorage.getItem('firstname')!=null?indicator:null}
            
             <Item 
             onClick={handleClick}
@@ -100,7 +100,7 @@ const Sidemenu = () => {
             </svg> {" "}
                 Home
             </Item>
-            {!authenticate?LoginSignup:null}
+            {window.localStorage.getItem('firstname')==null?LoginSignup:null}
             <Item 
             onClick={handleClick}
             as={Link}

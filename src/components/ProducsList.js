@@ -9,10 +9,10 @@ import axios from 'axios'
 const ProducsList = () => {
   const [products,setProducts]=useState([])
 
-  // useEffect(async ()=>{
-  //     await axios.get("http://localhost:88888/api/allProduct").then(res=>setProducts(res.data))
-
-  // },[])
+  useEffect(async ()=>{
+      await axios.get("http://localhost:8888/api/allProduct").then(res=>setProducts(res.data.data)).catch(e=>console.log(e))
+    
+  },[])
 
 
 
@@ -26,14 +26,39 @@ const ProducsList = () => {
     <>
     <Container>
       <Filters>
-        Category:
-        <select style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}>
+        <label style={{margin:'15px'}}>Category:</label>
+        {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
+          <select className='form-control' style={{margin:'15px',width:'200px'}}>
           <option>ALL</option>
           <option>Furniture</option>
           <option>Clothing</option>
           <option>Stationary</option>
         </select>
+        <label style={{margin:'15px'}}>Price:</label>
+        {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
+          <select className='form-control' style={{margin:'15px',width:'200px'}}>
+          <option>ALL</option>
+          <option>less than 1000</option>
+          <option>1000-5000</option>
+          <option>5000-10000</option>
+          <option>More than 10000</option>
+        </select>
       </Filters>
+      {
+        products.map(p=>{ console.log(p);return (
+        <Productcontainer className='shadow'>
+        <img src={"http://localhost:8888/"+p.images} style={{height:'20vh',width:'100%'}}></img>
+        <p style={{fontSize:'15px'}}><b>Product Name:</b>{p.name}</p>
+        <p style={{fontSize:'15px'}}><b>Category:</b>{p.category}</p>
+        <p style={{fontSize:'15px'}}><b>Price</b>:{p.price}</p>
+        <Button as={Link} to={'/Productdetails/'+p._id}>Buy Now</Button>
+      </Productcontainer>
+
+        )})
+      }
+
+
+
       <Productcontainer className='shadow'>
         <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
         <h4>Product Name</h4>
@@ -100,5 +125,6 @@ const Productcontainer = styled(Card)`
 
 const Filters=styled.div`
 width:100%;
-flex-direction:;
+display:flex;
+flex-direction:row;
 `
