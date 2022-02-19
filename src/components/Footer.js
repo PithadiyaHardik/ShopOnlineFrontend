@@ -1,6 +1,7 @@
 import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import PhoneIcon from "@material-ui/icons/Phone";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Footer = () => {
@@ -26,6 +27,7 @@ const Footer = () => {
           ShopOnline@gmail.com
         </div>
         <div className="col">
+       
           <MailOutlineIcon color="Primary" style={{ fontSize: "20px" }} />
         </div>
       </div>
