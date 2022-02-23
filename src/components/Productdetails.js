@@ -99,7 +99,7 @@ const Productdetails = () => {
         handler: async function (response) {
           alert("Payment id:"+response.razorpay_payment_id)
           setStartPayment(false);
-          await axios.post("http://localhost:8888/api/addOrder",{paymentid:response.razorpay_payment_id,quantity:quantity,paymenId:id,phone:window.localStorage.getItem('phone'),email:window.localStorage.getItem('email'),address:address})
+          await axios.post("http://localhost:8888/api/addOrder",{paymentid:response.razorpay_payment_id,quantity:quantity,productId:id,productName:product.name,phone:window.localStorage.getItem('phone'),email:window.localStorage.getItem('email'),address:address})
           .then(res=>console.log(res)).catch(err=>console.log(err))
           
         },

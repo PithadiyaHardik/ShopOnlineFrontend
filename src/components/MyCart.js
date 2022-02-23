@@ -37,7 +37,7 @@ const MyCart = () => {
 
   return (
     <div>
-      <div style={{fontSize:'30px'}}>My Cart</div>
+      <div style={{fontSize:'25px'}}>My Cart</div>
       <hr></hr>
         <Container>
           {

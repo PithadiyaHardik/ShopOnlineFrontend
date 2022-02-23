@@ -4,6 +4,8 @@ import { Link,useHistory} from "react-router-dom";
 import {Button} from 'react-bootstrap'
 import img from "./logo.png";
 import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 
 const Sidemenu = () => {
 
@@ -101,6 +103,24 @@ const Sidemenu = () => {
                 Home
             </Item>
             {window.localStorage.getItem('firstname')==null?LoginSignup:null}
+            {window.localStorage.getItem('firstname')!=null?
+            <>
+            <Item 
+            onClick={handleClick}
+            as={Link}
+            to={"/MyCart"} style={{padding:'5px'}}>
+                <ShoppingCartIcon/> {" "}
+                MyCart
+            </Item>
+            <Item 
+            onClick={handleClick}
+            as={Link}
+            to={"/MyOrders"} style={{padding:'5px'}}>
+                <ShoppingCartIcon/> {" "}
+                MyOrders
+            </Item>
+            </>:null
+            }
             <Item 
             onClick={handleClick}
             as={Link}

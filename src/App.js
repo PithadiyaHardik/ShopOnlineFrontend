@@ -19,6 +19,7 @@ import AddStock from "./components/AddStock";
 import CartIndicator from "./components/CartIndicator";
 import axios from "axios";
 import MyCart from "./components/MyCart";
+import MyOrders from "./components/MyOrders";
 
 export const AuthenticateContext=React.createContext();
 export const SetAuthenticatedContext=React.createContext();
@@ -121,6 +122,9 @@ function App() {
         </Route>
         <Route exact path="/MyCart">
           <MyCart/>
+        </Route>
+        <Route exact path="/MyOrders">
+          <MyOrders/>
         </Route>
       </BrowserRouter>
       </CartContext.Provider>
