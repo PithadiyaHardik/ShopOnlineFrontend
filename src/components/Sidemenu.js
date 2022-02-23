@@ -49,7 +49,7 @@ const Sidemenu = () => {
     const history=useHistory();
     const logout=() => {
         // setLoggedIn(false)
-        setAuthenticatedContext(false)
+        // setAuthenticatedContext(false)
         window.localStorage.clear();
         handleClick();
         history.push("/")
@@ -70,13 +70,13 @@ const Sidemenu = () => {
     return (
     
         <>
-        <div id='side2' style={{display:'block',margin:'10px'}}><button style={{backgroundColor:'transparent',border:'None'}} onClick={handleClick}><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+        <div id='side2' style={{display:'block',margin:'10px',height:'25px'}}><button style={{backgroundColor:'transparent',border:'None'}} onClick={handleClick}><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
         </svg>
         </button></div>
         {/* <div id='side' style={{display:'none',width:'25vw',height:'100%',backgroundColor:'#0a4780',borderRadius:'10px'}}> */}
             
-            <MenuContainer id='side' >
+            <MenuContainer id='side' style={{height:'100vh'}} >
 
             <button style={{backgroundColor:'transparent',border:'None'}} onClick={handleClick}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>

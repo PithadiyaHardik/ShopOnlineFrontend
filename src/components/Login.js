@@ -35,10 +35,11 @@ const Login = () => {
           // window.sessionStorage.login=true
           // window.location.href='/';
           // window.localStorage.setItem("loggedin",true)
-          setAuthenticatedContext(true);
+          // setAuthenticatedContext(true);
           window.localStorage.setItem("email",email);
           window.localStorage.setItem("firstname",res.data.firstname);
           window.localStorage.setItem("lastname",res.data.lastname);
+          window.localStorage.setItem("phone",res.data.phone);
           history.push("/")
         }
         else{

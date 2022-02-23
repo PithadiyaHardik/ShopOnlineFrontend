@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import styled from "styled-components";
 import { Card } from "react-bootstrap";
 import electronics from "./electronics.jpg";
@@ -8,9 +8,12 @@ import axios from 'axios'
 
 const ProducsList = () => {
   const [products,setProducts]=useState([])
+  const [displayProduct,setDisplayProduct]=useState([])
+  const filterRef1=useRef(null)
+  const filterRef2=useRef(null)
 
   useEffect(async ()=>{
-      await axios.get("http://localhost:8888/api/allProduct").then(res=>setProducts(res.data.data)).catch(e=>console.log(e))
+      await axios.get("http://localhost:8888/api/allProduct").then(res=>{setProducts(res.data.data);setDisplayProduct(res.data.data)}).catch(e=>console.log(e))
     
   },[])
 
@@ -20,34 +23,60 @@ const ProducsList = () => {
   //   let productlist=await axios.get('localhost:8888')
   // },[])
 
+    const filterHandler=()=>{
+      // console.log(filterRef1.current.value+" "+filterRef2.current.value)
+      var f1,f2;
+      if(filterRef1.current.value=="all")
+      {
+         f1=products;
+      }
+      else
+      {
+         f1=products.filter(p=>p.category==filterRef1.current.value)
+      }
+      if(filterRef2.current.value=="all")
+      {  
+        f2=f1;
+      }
+      else{
+        f2=f1.filter(p=>p.price<filterRef2.current.value)
 
+      }
+      
+      setDisplayProduct(f2);
+    }
 
   return (
     <>
     <Container>
       <Filters>
+        <div>
         <label style={{margin:'15px'}}>Category:</label>
         {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
-          <select className='form-control' style={{margin:'15px',width:'200px'}}>
-          <option>ALL</option>
-          <option>Furniture</option>
-          <option>Clothing</option>
-          <option>Stationary</option>
+          <select ref={filterRef1} onChange={filterHandler} className='form-control' style={{margin:'15px',width:'200px'}}>
+          <option selected value="all">ALL</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Stationary">Stationary</option>
+          <option value="Electronics">Electronics</option>
         </select>
-        <label style={{margin:'15px'}}>Price:</label>
+        </div>
+        <div>
+        <label  style={{margin:'15px'}}>Price:</label>
         {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
-          <select className='form-control' style={{margin:'15px',width:'200px'}}>
-          <option>ALL</option>
-          <option>less than 1000</option>
-          <option>1000-5000</option>
-          <option>5000-10000</option>
-          <option>More than 10000</option>
+          <select ref={filterRef2}  onChange={filterHandler} className='form-control' style={{margin:'15px',width:'200px'}}>
+          <option selected value="all">ALL</option>
+          <option  value="1000">less than 1000</option>
+          <option value="5000">less than 5000</option>
+          <option value="10000">less than 10000</option>
+          <option value="20000">less than 20000</option>
         </select>
+        </div>
       </Filters>
       {
-        products.map(p=>{ console.log(p);return (
+        displayProduct.map(p=>{ console.log(p);return (
         <Productcontainer className='shadow'>
-        <img src={"http://localhost:8888/"+p.images} style={{height:'20vh',width:'100%'}}></img>
+        <img src={"http://localhost:8888/"+p.images} style={{height:'180px',width:'100%'}}></img>
         <p style={{fontSize:'15px'}}><b>Product Name:</b>{p.name}</p>
         <p style={{fontSize:'15px'}}><b>Category:</b>{p.category}</p>
         <p style={{fontSize:'15px'}}><b>Price</b>:{p.price}</p>
@@ -56,8 +85,6 @@ const ProducsList = () => {
 
         )})
       }
-
-
 
       <Productcontainer className='shadow'>
         <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
@@ -126,5 +153,7 @@ const Productcontainer = styled(Card)`
 const Filters=styled.div`
 width:100%;
 display:flex;
+flex-wrap:wrap;
+justify-content:start;
 flex-direction:row;
 `

@@ -55,10 +55,11 @@ const Signup = () => {
         {
           // window.location.href='/';
           // window.localStorage.setItem("loggedin",true)
-          setAuthenticatedContext(true);
+          // setAuthenticatedContext(true);
           window.localStorage.setItem("email",email);
           window.localStorage.setItem("firstname",firstname);
           window.localStorage.setItem("lastname",lastname);
+          window.localStorage.setItem("lastname",phone);
           history.push("/")
         
 

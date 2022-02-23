@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import AddProduct from "./components/AddProduct";
 import Footer from "./components/Footer";
 import ProductsTypes from "./components/ProductsTypes";
@@ -17,14 +17,37 @@ import Sidemenu from "./components/Sidemenu";
 import NevigationMenu from "./components/NevigationMenu";
 import AddStock from "./components/AddStock";
 import CartIndicator from "./components/CartIndicator";
+import axios from "axios";
+import MyCart from "./components/MyCart";
 
 export const AuthenticateContext=React.createContext();
 export const SetAuthenticatedContext=React.createContext();
+export const CartContext=React.createContext();
 
 
 function App() {
 
   const [authenticate,setAuthenticate]=useState(false);
+  const [cartLength,setCartLength]=useState(0);
+  useEffect(async() =>{
+    if(window.localStorage.getItem('email')!=null)
+    {
+      await axios.post("http://localhost:8888/api/getCart",{email:window.localStorage.getItem('email')})
+      .then(res=>{
+        if(res.data.ans)
+        { 
+          setCartLength(res.data.cart.length)
+        }
+        else{
+          alert("Unable to load cart please refresh try again!!!!!!!!!!")
+        }
+
+      })
+    }
+  },[])
+
+
+
   if(window.localStorage.getItem('logged')==true)
   {
     setAuthenticate(true);
@@ -51,15 +74,16 @@ function App() {
      
       {/* <Navigation /> */}
 
-      <AuthenticateContext.Provider value={authenticate}>
-        <SetAuthenticatedContext.Provider value={setAuthenticate}>
+      {/* <AuthenticateContext.Provider value={authenticate}>
+        <SetAuthenticatedContext.Provider value={setAuthenticate}> */}
+    <CartContext.Provider value={setCartLength}>
       <BrowserRouter>
       <NevigationMenu style={{margin:'10px'}}/>
       <div style={{fontSize:'40px',fontFamily:'Times New Roman',backgroundColor:'#ff9900'}}>
         <i><center><div style={{display:'inline'}}>C2CShopOnline</div>
        </center></i>
         </div>
-        <CartIndicator/>
+        <CartIndicator length={cartLength}/>
         <Route exact path="/">
             
           <Slider/>
@@ -95,9 +119,13 @@ function App() {
         <Route exact path="/AddStock">
           <AddStock/>
         </Route>
+        <Route exact path="/MyCart">
+          <MyCart/>
+        </Route>
       </BrowserRouter>
-       </SetAuthenticatedContext.Provider>
-      </AuthenticateContext.Provider>
+      </CartContext.Provider>
+       {/* </SetAuthenticatedContext.Provider>
+      </AuthenticateContext.Provider> */}
     </div>
   );
 }
