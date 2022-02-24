@@ -10,7 +10,7 @@ const UpdateUserRole = () => {
     const [displayUsers,setDisplayUsers]=useState([]);
 
     useEffect(async ()=>{
-        await axios.get("http://localhost:8888/api/allUsers")
+        await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             
             if(res.data.ans)
@@ -36,12 +36,12 @@ const UpdateUserRole = () => {
 
     const makeAdmin=(e)=>{
         let id=e.target.id;
-        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"admin"})
+        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"admin",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async (res)=>{
             if(res.data.ans)
             {
                 alert("Created admin successfully!");
-                await axios.get("http://localhost:8888/api/allUsers")
+                await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                      .then(res=>{
                         if(res.data.ans)
                         {
@@ -61,12 +61,12 @@ const UpdateUserRole = () => {
     }
     const removeAdmin=(e)=>{
         let id=e.target.id;
-        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"regular"})
+        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"regular",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async (res)=>{
             if(res.data.ans)
             {
                 alert("Removed admin successfully!");
-                await axios.get("http://localhost:8888/api/allUsers")
+                await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             
             if(res.data.ans)

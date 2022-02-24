@@ -15,25 +15,25 @@ const ProductsTypes = () => {
         flexWrap: "wrap",
       }}
     >
-      <Card style={{ width: "200px", margin: "20px" }}>
+      <Card className='shadow' style={{ width: "200px", margin: "20px" }}>
         <Card.Img variant="top" src={electronics}></Card.Img>
         <Card.Body>
           <Card.Title>Electronics</Card.Title>
         </Card.Body>
       </Card>
-      <Card style={{ width: "200px", margin: "20px" }}>
+      <Card className='shadow' style={{ width: "200px", margin: "20px" }}>
         <Card.Img variant="top" src={clothing}></Card.Img>
         <Card.Body>
           <Card.Title>Clothing</Card.Title>
         </Card.Body>
       </Card>
-      <Card style={{ width: "200px", margin: "20px" }}>
+      <Card className='shadow' style={{ width: "200px", margin: "20px" }}>
         <Card.Img variant="top" src={furniture}></Card.Img>
         <Card.Body>
           <Card.Title>Furniture</Card.Title>
         </Card.Body>
       </Card>
-      <Card style={{ width: "200px", margin: "20px" }}>
+      <Card className='shadow' style={{ width: "200px", margin: "20px" }}>
         <Card.Img variant="top" src={stationary}></Card.Img>
         <Card.Body>
           <Card.Title>Stationary</Card.Title>

@@ -59,7 +59,7 @@ const Signup = () => {
           window.localStorage.setItem("email",email);
           window.localStorage.setItem("firstname",firstname);
           window.localStorage.setItem("lastname",lastname);
-          window.localStorage.setItem("lastname",phone);
+          window.localStorage.setItem("phone",phone);
           history.push("/")
         
 
@@ -138,7 +138,7 @@ const Signup = () => {
         <Form.Control
           className="col"
           id='password'
-          type="text"
+          type="password"
           onChange={handleChange}
           placeholder="Password"
           style={{ margin: "10px" }}

@@ -33,7 +33,7 @@ const Footer = () => {
       </div>
       <div className="row">
         <div className="col" style={{ fontSize: "15px" }}>
-          ShopOnline@gmail.com
+          1234567890
         </div>
         <div className="col">
           <PhoneIcon color="secondary" style={{ fontSize: "20px" }} />

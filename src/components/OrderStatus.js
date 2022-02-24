@@ -12,7 +12,7 @@ const OrderStatus = () => {
     const filterRef1=useRef(null);
     const filterRef2=useRef(null);
     useEffect(async()=>{
-        await axios.get("http://localhost:8888/api/allOrders")
+        await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             if(res.data.ans)
             {   
@@ -20,7 +20,7 @@ const OrderStatus = () => {
                 setdisplayOrders(res.data.orders);
             }
             else{
-                alert("Failed to load please try again")
+                alert(res.data.data)
             }
 
         }).catch(err=>{console.log(err)})
@@ -31,11 +31,11 @@ const OrderStatus = () => {
         let s=e.target.getAttribute("status");
         let id=e.target.id;
         if(s.toLowerCase()=="pending")
-        {   await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Dispatched"})
+        {   await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Dispatched",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async(res)=>{
             if(res.data.ans)
             {
-                await axios.get("http://localhost:8888/api/allOrders")
+                await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                 .then(res=>{
                     if(res.data.ans)
                     {   
@@ -61,10 +61,10 @@ const OrderStatus = () => {
         }
         else if(s.toLowerCase()=="dispatched"){
 
-            await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Delivered"})
+            await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Delivered",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
             .then(async(res)=>{
                 if(res.data.ans)
-                {   await axios.get("http://localhost:8888/api/allOrders")
+                {   await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                 .then(res=>{
                     if(res.data.ans)
                     {   

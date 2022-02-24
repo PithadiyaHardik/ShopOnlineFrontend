@@ -168,6 +168,7 @@ const Productdetails = () => {
       </p>
       <Productimg src={"http://localhost:8888/"+product.images} />
       <p style={{alignSelf:'flex-start',fontSize:'30px',color:'#0fd43d'}}>{product.price}Rs.</p>
+      <p style={{fontSize:'15px',alignSelf:'flex-start',color:'red'}}>FREE DELIVERY AT YOUR DOOR STEP!!!!!</p>
       <p style={{alignSelf:'start',fontSize:'15px'}}><b>Company Name:</b>{product.company}
 </p>
       <p style={{alignSelf:'start',fontSize:'15px'}} align='justify' ><b>Description:</b>{product.description}</p>
@@ -196,7 +197,7 @@ const Productdetails = () => {
     
     <ReviewContainer  style={{margin:'4px'}}>
     <hr/>
-      <h5 style={{alignSelf:'start'}}>Reviews:</h5>
+      <h5 style={{alignSelf:'start'}}>Product Reviews:</h5>
 
      {review.map(r=>{
 

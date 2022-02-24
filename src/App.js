@@ -22,6 +22,7 @@ import MyCart from "./components/MyCart";
 import MyOrders from "./components/MyOrders";
 import OrderStatus from "./components/OrderStatus";
 import UpdateUserRole from "./components/UpdateUserRole";
+import {Button} from 'react-bootstrap'
 
 export const AuthenticateContext=React.createContext();
 export const SetAuthenticatedContext=React.createContext();
@@ -83,12 +84,24 @@ function App() {
       <BrowserRouter>
       <NevigationMenu style={{margin:'10px'}}/>
       <div style={{fontSize:'40px',fontFamily:'Times New Roman',backgroundColor:'#ff9900'}}>
-        <i><center><div style={{display:'inline'}}>C2CShopOnline</div>
+        <i><center><div style={{display:'inline'}}>ShopOnline</div>
        </center></i>
         </div>
         <CartIndicator length={cartLength}/>
         <Route exact path="/">  
           <Slider/>
+          {/* <div style={{display:'flex',flexDirection:'column',padding:'5px'}}>
+            <div className='shadow' style={{alignSelf:'start',display:'flex',flexDirection:'column',width:'300px'}}>
+              <p>Do not have an account?</p>
+              <p>Register to our website in just minutes and start your shopping journey</p>
+              <Button>SignUp</Button>
+            </div>
+            <div className='shadow' style={{alignSelf:'end',display:'flex',flexDirection:'column',width:'300px'}}>
+              <p>Have an account?</p>
+              <p>Login and your shopping journey</p>
+              <Button>SignUp</Button>
+              </div>
+          </div> */}
           <ProductsTypes/>
           <Footer />
         </Route>

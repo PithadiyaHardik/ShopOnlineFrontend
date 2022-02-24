@@ -32,21 +32,23 @@ const AddStock = () => {
 
 
     const uploadStock= async(e) => {
-        let id=e.target.getAttribute("fid");
+        e.preventDefault();
+        let id=e.target.elements[0].id;
         console.log(id)
-        let quantity=document.getElementById(id).value;
+        let quantity=e.target.elements[0].value;
         console.log(quantity)
         if(quantity>0)
         {
-        await axios.post("http://localhost:8888/api/addStock/"+id,{quantity:Number(quantity)})
+        await axios.post("http://localhost:8888/api/addStock/"+id,{quantity:Number(quantity),email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
+            console.log(res)
             if(res.data.ans)
             { 
                 alert("Added stock successfully")
-                document.getElementById(id).value=""
+                e.target.elements[0].value=""
             }
             else{
-                alert("Could not add stock try again")
+                alert(res.data.data)
             }
         })
             
@@ -111,7 +113,7 @@ const AddStock = () => {
                 <th>Company</th>
                 <th>Product Name</th>
                 <th>stock to be added</th>
-                <th></th>
+                {/* <th></th> */}
             </thead>
 
 
@@ -126,15 +128,20 @@ const AddStock = () => {
                         <td>{product.category}</td>
                         <td>{product.company}</td>
                         <td>{product.name}</td>
-                        <td><input  id={product._id} className='form-control' style={{margin:'5px',width:'100%'}} placeholder='Quantity' type='number' min='1' /></td>
-                        <td>
-                        <Button variant='success' fid={product._id} type="submit" onClick={uploadStock}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <td style={{display:'flex'}}>
+                        <form style={{display:'flex',width:'100%'}} onSubmit={uploadStock}>
+                        <input  id={product._id} className='form-control' style={{minWidth:'80px',margin:'5px',width:'100%'}} placeholder='Quantity' type='number' min='1' />
+                        <Button variant='success' fid={product._id} type="submit" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"  class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                         </svg>    
                         {" "}Add
                         </Button>
+                        </form>
+                        {/* onClick={uploadStock} */}
                         </td>
+                        
+                        
                       
 
                     </tr>)
@@ -142,7 +149,7 @@ const AddStock = () => {
 
                     })
                 }
-                <tr>
+                {/* <tr>
                     <td>1.</td>
                     <td>Electronics</td>
                     <td>Lenovo</td>
@@ -187,9 +194,9 @@ const AddStock = () => {
                     </svg>    
                     {" "}Add
                     </Button>
-                    </td>
+                    </td> */}
                     
-                </tr>
+                {/* </tr> */}
 
 
 

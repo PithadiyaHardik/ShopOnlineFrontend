@@ -44,6 +44,7 @@ const Login = () => {
             window.localStorage.setItem('admin',res.data.password);
           }
           if(res.data.role.toLowerCase()=="superadmin"){
+            window.localStorage.setItem('admin',res.data.password);
             window.localStorage.setItem('superadmin',res.data.password);
           }
           history.push("/")

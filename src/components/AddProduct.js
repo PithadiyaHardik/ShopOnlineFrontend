@@ -5,6 +5,7 @@ import img from './img2.jpg'
 import axios from 'axios'
 
 const AddProduct = () => {
+
     const formRef=useRef(null)
     const [colors,setColors]=useState([]);
     const colorInputRef=useRef(null);
@@ -61,8 +62,16 @@ const AddProduct = () => {
         formdata.append("Stock",quantity)
         formdata.append("warrenty",warrenty)
         formdata.append("category",category)
+        formdata.append("admin",window.localStorage.getItem('admin'))
         await axios.post("http://localhost:8888/api/addProduct",formdata)
-        .then(()=>{alert("Added successfully");formRef.current.reset();setColors([])})
+        .then((res)=>{
+            if(res.data.ans)
+            {
+            alert("Added successfully");formRef.current.reset();setColors([])}
+               else{
+                   alert(res.data.data);
+               } 
+            })
         .catch(e=>console.log(e))
 
     }
@@ -81,6 +90,13 @@ const AddProduct = () => {
 
     
     return (
+        // if(window.localStorage.getItem('admin')==null)
+        // {
+
+        // }
+        // else{
+
+        // }
         <>
         <center>
         <div style={{display:'flex',flexDirection:'row',justifyContent: 'space-evenly',flexWrap:'wrap'}}>
