@@ -20,6 +20,8 @@ import CartIndicator from "./components/CartIndicator";
 import axios from "axios";
 import MyCart from "./components/MyCart";
 import MyOrders from "./components/MyOrders";
+import OrderStatus from "./components/OrderStatus";
+import UpdateUserRole from "./components/UpdateUserRole";
 
 export const AuthenticateContext=React.createContext();
 export const SetAuthenticatedContext=React.createContext();
@@ -85,8 +87,7 @@ function App() {
        </center></i>
         </div>
         <CartIndicator length={cartLength}/>
-        <Route exact path="/">
-            
+        <Route exact path="/">  
           <Slider/>
           <ProductsTypes/>
           <Footer />
@@ -96,16 +97,13 @@ function App() {
           <Footer />
         </Route>
         <Route exact path="/SignUp">
-          
           <Signup />
           <Footer />
         </Route>
         <Route exact path="/ProductsList">
           <ProducsList />
         </Route>
-        
         <Route exact path="/Productdetails/:id">
-       
           <Productdetails />
         </Route>
         <Route exact path="/Product">
@@ -125,6 +123,12 @@ function App() {
         </Route>
         <Route exact path="/MyOrders">
           <MyOrders/>
+        </Route>
+        <Route exact path="/OrderStatus">
+          <OrderStatus/>
+        </Route>
+        <Route exact path="/UpdateUserRole">
+          <UpdateUserRole/>
         </Route>
       </BrowserRouter>
       </CartContext.Provider>

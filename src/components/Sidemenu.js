@@ -5,6 +5,7 @@ import {Button} from 'react-bootstrap'
 import img from "./logo.png";
 import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 
 const Sidemenu = () => {
@@ -13,6 +14,7 @@ const Sidemenu = () => {
     const authenticate=useContext(AuthenticateContext)
     const [firstname,setFirstname]=useState();
     const [lastname,setLastname]=useState();
+    const [admin,setAdmin]=useState();
     // useEffect(()=>{},[loggedin])
     const handleClick=()=>{
         var x = document.getElementById("side");
@@ -23,6 +25,10 @@ const Sidemenu = () => {
         } else {
           setFirstname(window.localStorage.getItem("firstname"))
           setLastname(window.localStorage.getItem("lastname"))
+          if(window.localStorage.getItem('admin'!=null))
+          {
+              setAdmin(true);
+          }
           x.style.display = "inline-block";
           y.style.display='none'
         }
@@ -130,7 +136,31 @@ const Sidemenu = () => {
                 </svg> {" "}
                 AllProducts
             </Item>
-            
+            {window.localStorage.getItem("admin")!=null?<>
+            <Item 
+            onClick={handleClick}
+            as={Link}
+            to={"/AddProduct"} style={{padding:'5px'}}>
+               <AddShoppingCartIcon/> {" "}
+                AddProduct
+            </Item>
+            <Item 
+            onClick={handleClick}
+            as={Link}
+            to={"/Addstock"} style={{padding:'5px'}}>
+                <AddShoppingCartIcon/> {" "}
+                AddStock
+            </Item>
+            <Item 
+            onClick={handleClick}
+            as={Link}
+            to={"/OrderStatus"} style={{padding:'5px'}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                </svg> {" "}
+                OrderStatus
+            </Item>
+            </>:null}
             </MenuContainer>
         </>
     )

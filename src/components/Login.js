@@ -40,6 +40,12 @@ const Login = () => {
           window.localStorage.setItem("firstname",res.data.firstname);
           window.localStorage.setItem("lastname",res.data.lastname);
           window.localStorage.setItem("phone",res.data.phone);
+          if(res.data.role.toLowerCase()=="admin"){
+            window.localStorage.setItem('admin',res.data.password);
+          }
+          if(res.data.role.toLowerCase()=="superadmin"){
+            window.localStorage.setItem('superadmin',res.data.password);
+          }
           history.push("/")
         }
         else{
