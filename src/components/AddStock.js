@@ -34,14 +34,14 @@ const AddStock = () => {
     const uploadStock= async(e) => {
         e.preventDefault();
         let id=e.target.elements[0].id;
-        console.log(id)
+       
         let quantity=e.target.elements[0].value;
-        console.log(quantity)
+ 
         if(quantity>0)
         {
         await axios.post("http://localhost:8888/api/addStock/"+id,{quantity:Number(quantity),email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
-            console.log(res)
+            
             if(res.data.ans)
             { 
                 alert("Added stock successfully")
@@ -75,37 +75,8 @@ const AddStock = () => {
                 <option value="Electronics">Electronics</option>
             </select>
             </div>
-            {/* <div>
-            <label style={{margin:'10px'}}>Category</label>
-            <select className='form-control' style={{margin:'15px',width:'200px'}} >
-                <option>All</option>
-                <option>Furniture</option>
-                <option>Clothing</option>
-                <option>Stationary</option>
-                <option>Electronics</option>
-                
-            </select>
-            </div>
-            <div>
-            <label style={{margin:'10px'}}>Category</label>
-
-            <select className='form-control' style={{margin:'15px',width:'200px'}} >
-                <option>All</option>
-                <option>Furniture</option>
-                <option>Clothing</option>
-                <option>Stationary</option>
-                <option>Electronics</option>
-            </select>
-            </div> */}
-            {/* <input className='form-control' style={{margin:'5px'}} placeholder='Quantity' type='number' min='1' /> */}
         </div>
-        {/* <center>
-        <Button variant='success'>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-        </svg>    
-        {" "}Add</Button>
-        </center> */}
+        
         <Table striped responsive hover bordered variant='light'>
             <thead>
                 <th>#</th>
@@ -113,7 +84,7 @@ const AddStock = () => {
                 <th>Company</th>
                 <th>Product Name</th>
                 <th>stock to be added</th>
-                {/* <th></th> */}
+             
             </thead>
 
 
@@ -149,58 +120,7 @@ const AddStock = () => {
 
                     })
                 }
-                {/* <tr>
-                    <td>1.</td>
-                    <td>Electronics</td>
-                    <td>Lenovo</td>
-                    <td>Laptop</td>
-                    <td><input className='form-control' style={{margin:'5px',width:'100%'}} placeholder='Quantity' type='number' min='1' /></td>
-                    <td>
-                    <Button variant='success'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                    </svg>    
-                    {" "}Add
-                    </Button>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Electronics</td>
-                    <td>Lenovo</td>
-                    <td>Laptop</td>
-                    <td><input className='form-control' style={{margin:'5px'}} placeholder='Quantity' type='number' min='1' /></td>
-                    <td>
-                    <Button variant='success'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                    </svg>    
-                    {" "}Add
-                    </Button>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Electronics</td>
-                    <td>Lenovo</td>
-                    <td>Laptop</td>
-                    <td><input className='form-control' style={{margin:'5px'}} placeholder='Quantity' type='number' min='1' /></td>
-                    <td>
-                    <Button variant='success'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                    </svg>    
-                    {" "}Add
-                    </Button>
-                    </td> */}
-                    
-                {/* </tr> */}
-
-
-
-
+                
             </tbody>
 
         </Table>

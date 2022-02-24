@@ -21,21 +21,6 @@ const Slider = () => {
                 <Carousel.Item interval={5000}>
                     <img src={i3}  style={{height:'70vh',width:'100%'}}/>
                 </Carousel.Item>
-                {/* <Carousel.Item interval={5000}>
-                    <img src={i4}  style={{height:'70vh',width:'100%'}}/>
-                </Carousel.Item>
-                <Carousel.Item interval={5000}>
-                    <img src={i5}  style={{height:'70vh',width:'100%'}}/>
-                </Carousel.Item>
-                <Carousel.Item interval={5000}>
-                    <img src={i6}  style={{height:'70vh',width:'100%'}}/>
-                </Carousel.Item>
-                <Carousel.Item interval={5000}>
-                    <img src={i7}  style={{height:'70vh',width:'100%'}}/>
-                </Carousel.Item>
-                <Carousel.Item interval={5000}>
-                    <img src={i8}  style={{height:'70vh',width:'100%'}}/>
-                </Carousel.Item> */}
             </Carousel>
             
         </div>

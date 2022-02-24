@@ -9,7 +9,7 @@ const MyOrders = () => {
         await axios.post("http://localhost:8888/api/getUsersOrders",{email:window.localStorage.getItem('email')})
         .then(res=>{
             if(res.data.ans)
-            {   console.log(res.data)
+            {   
                 setOrders(res.data.orders)
             }
             else{
@@ -36,7 +36,6 @@ const MyOrders = () => {
             <tbody>
                 {
                     orders.map((order,index)=>{
-                        // console.log(new Date(order.date))
                         
                         return(<tr>
                         <td>{index+1}</td>

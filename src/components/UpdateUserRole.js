@@ -28,7 +28,6 @@ const UpdateUserRole = () => {
 
     const searchHandler = (e) => {
         let text=e.target.value;
-        console.log(text)
         let arr=users.filter(u=>u.email.includes(text)||u.first_name.includes(text)||u.last_name.includes(text))
         setDisplayUsers(arr);
 

@@ -7,7 +7,6 @@ import img2 from "./logo2.png";
 import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-// import LogoutIcon from '@material-ui/icons/Logout';
 
 
 const Sidemenu = () => {
@@ -17,7 +16,6 @@ const Sidemenu = () => {
     const [firstname,setFirstname]=useState();
     const [lastname,setLastname]=useState();
     const [admin,setAdmin]=useState();
-    // useEffect(()=>{},[loggedin])
     const handleClick=()=>{
         var x = document.getElementById("side");
         var y=document.getElementById("side2");
@@ -58,17 +56,11 @@ const Sidemenu = () => {
 
     const history=useHistory();
     const logout=() => {
-        // setLoggedIn(false)
-        // setAuthenticatedContext(false)
         window.localStorage.clear();
         handleClick();
         history.push("/")
 
     }
-
-
-    
-    // const loggedin=window.localStorage.getItem("loggedin");
     
 
     const indicator= <Indicator style={{padding:'5px'}}>
@@ -90,7 +82,6 @@ const Sidemenu = () => {
          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
         </svg>
         </button></div>
-        {/* <div id='side' style={{display:'none',width:'25vw',height:'100%',backgroundColor:'#0a4780',borderRadius:'10px'}}> */}
             
             <MenuContainer id='side' style={{height:'100vh'}} >
 
@@ -100,7 +91,6 @@ const Sidemenu = () => {
             </svg></button>
             <img
             src={img2}
-            // className="d-inline-block align-top"
             style={{ height: "150px", width: "180px" }}
             alt="React Bootstrap logo"
           />

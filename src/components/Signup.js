@@ -36,7 +36,7 @@ const Signup = () => {
     else if(event.target.id=='phoneno')
     {
         setPhone(event.target.value)
-        console.log('phone')
+       
     }
     else{
         setPassword(event.target.value)
@@ -45,12 +45,11 @@ const Signup = () => {
   }
 
   const submitHandle=async ()=>{
-    console.log("Password:"+password)
-      console.log(firstname+" "+middlename+" "+lastname+" "+email+" "+password+""+phone)
+   
       if(email!=""&&firstname!=""&&lastname!=""&&middlename!=""&&password!=""&& phone!="")
       {
     await axios.post('http://localhost:8888/api/register',{first_name:firstname,last_name:lastname,middle_name:middlename,phone_number:phone,email:email,password:password}).then(res=>{
-        console.log(res.data)
+        
         if(res.data.result==="success")
         {
           // window.location.href='/';

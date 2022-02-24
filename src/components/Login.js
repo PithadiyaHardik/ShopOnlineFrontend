@@ -18,11 +18,11 @@ const Login = () => {
     if(event.target.id=='email')
     {
       setEmail(event.target.value)
-      console.log(email)
+     
     }
     else{
       setPassword(event.target.value)
-      console.log(password)
+      
     }
 
   }

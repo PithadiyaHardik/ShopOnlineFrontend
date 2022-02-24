@@ -18,13 +18,8 @@ const ProducsList = () => {
   },[])
 
 
-
-  // useEffect(()=>{
-  //   let productlist=await axios.get('localhost:8888')
-  // },[])
-
     const filterHandler=()=>{
-      // console.log(filterRef1.current.value+" "+filterRef2.current.value)
+      
       var f1,f2;
       if(filterRef1.current.value=="all")
       {
@@ -52,7 +47,6 @@ const ProducsList = () => {
       <Filters>
         <div>
         <label style={{margin:'15px'}}>Category:</label>
-        {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
           <select ref={filterRef1} onChange={filterHandler} className='form-control' style={{margin:'15px',width:'200px'}}>
           <option selected value="all">ALL</option>
           <option value="Furniture">Furniture</option>
@@ -63,7 +57,6 @@ const ProducsList = () => {
         </div>
         <div>
         <label  style={{margin:'15px'}}>Price:</label>
-        {/* <select className='form-control' style={{width:'100px',heigth:'25px',border:'none',margin:'10px'}}> */}
           <select ref={filterRef2}  onChange={filterHandler} className='form-control' style={{margin:'15px',width:'200px'}}>
           <option selected value="all">ALL</option>
           <option  value="1000">less than 1000</option>
@@ -74,7 +67,7 @@ const ProducsList = () => {
         </div>
       </Filters>
       {
-        displayProduct.map(p=>{ console.log(p);return (
+        displayProduct.map(p=>{ return (
         <Productcontainer className='shadow'>
         <img src={"http://localhost:8888/"+p.images} style={{height:'180px',width:'100%'}}></img>
         <p style={{fontSize:'15px'}}><b>Product Name:</b>{p.name}</p>

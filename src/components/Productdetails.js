@@ -12,7 +12,6 @@ const Productdetails = () => {
  
   const RazorPay=useRazorpay();
   const authenticate =useContext(AuthenticateContext)
-  console.log(authenticate)
   const setCart=useContext(CartContext)
   const [product,setProduct]=useState({});
   const [reviewText,setText]=useState();
@@ -24,23 +23,11 @@ const Productdetails = () => {
   const [startPayment,setStartPayment]=useState(false)
   const {id}=useParams()
 
-  // useEffect(()=>{
-
-  //   window.addEventListener('beforeunload',(e)=>{
-  //     e.returnValue=() => {console.log("Function call")}
-  //       console.log(e)
-    
-  //   })
-  // },[])
-
-
-  
 
   //addCart
   const addCart=async ()=>{
-    console.log("Add cart")
     await axios.post("http://localhost:8888/api/addCart",{email:window.localStorage.getItem('email'),id:id})
-    .then(res=>{console.log(res);
+    .then(res=>{
         if(res.data.ans)
         {
           setCart(pre=>pre+1)
@@ -66,7 +53,18 @@ const Productdetails = () => {
     let email=window.localStorage.getItem('email');
     let newReview={email:email,text:reviewText}
     await axios.post("http://localhost:8888/api/addReview/"+id,{email:email,review:reviewText})
-    .then(()=>{alert("Thanks for review!!!!!!");setReview(pre=>[...pre,newReview])})
+    .then(
+      (res)=>
+      {
+        if(res.data.ans)
+        {
+        alert("Thanks for review!!!!!!");
+        setReview(pre=>[...pre,newReview])
+        }
+        else{
+          alert(res.data.data)
+        }
+      }).catch(()=>{alert("Unable to add Review")})
   }
 
     //reenter stock on payment failing
@@ -90,7 +88,6 @@ const Productdetails = () => {
       }
       else{
         let res=await axios.post("http://localhost:8888/api/generateOrderId",{amount:quantity*product.price})
-        console.log(res)
         let options={
         KEY_ID:"rzp_test_DnK1IvY3O5N98N",
         name:"ShopOnline",

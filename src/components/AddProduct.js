@@ -37,7 +37,7 @@ const AddProduct = () => {
             setImage(event.target.files[0])
         }
         else if(event.target.id=='description'){
-            console.log(description)
+            
             setDescription(event.target.value)
         }
         else if(event.target.id=='category')
