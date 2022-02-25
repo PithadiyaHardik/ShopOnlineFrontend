@@ -63,6 +63,7 @@ const AddProduct = () => {
         formdata.append("warrenty",warrenty)
         formdata.append("category",category)
         formdata.append("admin",window.localStorage.getItem('admin'))
+        formdata.append("email",window.localStorage.getItem('email'))
         await axios.post(process.env.REACT_APP_BASE_API+"/api/addProduct",formdata)
         .then((res)=>{
             if(res.data.ans)
