@@ -12,7 +12,8 @@ const OrderStatus = () => {
     const filterRef1=useRef(null);
     const filterRef2=useRef(null);
     useEffect(async()=>{
-        await axios.get(process.env.REACT_APP_BASE_API+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        // process.env.REACT_APP_BASE_API
+        await axios.post("http://localhost:8888"+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             if(res.data.ans)
             {   
