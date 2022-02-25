@@ -8,7 +8,7 @@ const AddStock = () => {
     const [displayProduct,setDisplayProduct]=useState([]);
 
     useEffect(async ()=>{
-        await axios.get("http://localhost:8888/api/allProduct").then(res=>{
+        await axios.get(process.env.REACT_APP_BASE_API+"/api/allProduct").then(res=>{
             setProducts(res.data.data);
             setDisplayProduct(res.data.data);
         }).catch(err=>{console.log(err)})
@@ -39,7 +39,7 @@ const AddStock = () => {
  
         if(quantity>0)
         {
-        await axios.post("http://localhost:8888/api/addStock/"+id,{quantity:Number(quantity),email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        await axios.post(process.env.REACT_APP_BASE_API+"/api/addStock/"+id,{quantity:Number(quantity),email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             
             if(res.data.ans)

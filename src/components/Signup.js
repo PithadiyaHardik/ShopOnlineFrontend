@@ -4,11 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form } from "react-bootstrap";
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
 
 const Signup = () => {
     const history=useHistory();
-    const setAuthenticatedContext=useContext(SetAuthenticatedContext)
     const [firstname,setFirstname]=useState("")
     const [middlename,setMiddlename]=useState("")
     const [lastname,setLastname]=useState("")
@@ -48,13 +46,10 @@ const Signup = () => {
    
       if(email!=""&&firstname!=""&&lastname!=""&&middlename!=""&&password!=""&& phone!="")
       {
-    await axios.post('http://localhost:8888/api/register',{first_name:firstname,last_name:lastname,middle_name:middlename,phone_number:phone,email:email,password:password}).then(res=>{
+    await axios.post(process.env.REACT_APP_BASE_API+'/api/register',{first_name:firstname,last_name:lastname,middle_name:middlename,phone_number:phone,email:email,password:password}).then(res=>{
         
         if(res.data.result==="success")
         {
-          // window.location.href='/';
-          // window.localStorage.setItem("loggedin",true)
-          // setAuthenticatedContext(true);
           window.localStorage.setItem("email",email);
           window.localStorage.setItem("firstname",firstname);
           window.localStorage.setItem("lastname",lastname);

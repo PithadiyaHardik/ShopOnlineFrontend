@@ -4,14 +4,13 @@ import img from "./electronics.jpg";
 import { Card,Button, Alert,Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {AuthenticateContext,CartContext} from '../App.js'
+import {CartContext} from '../App.js'
 import useRazorpay from'react-razorpay'
 
 
 const Productdetails = () => {
  
   const RazorPay=useRazorpay();
-  const authenticate =useContext(AuthenticateContext)
   const setCart=useContext(CartContext)
   const [product,setProduct]=useState({});
   const [reviewText,setText]=useState();
@@ -26,7 +25,7 @@ const Productdetails = () => {
 
   //addCart
   const addCart=async ()=>{
-    await axios.post("http://localhost:8888/api/addCart",{email:window.localStorage.getItem('email'),id:id})
+    await axios.post(process.env.REACT_APP_BASE_API+"/api/addCart",{email:window.localStorage.getItem('email'),id:id})
     .then(res=>{
         if(res.data.ans)
         {
@@ -42,7 +41,7 @@ const Productdetails = () => {
 
   //get all the products available and generate product id
   useEffect(async ()=>{
-   await axios.get("http://localhost:8888/api/getProductDetails/"+id)
+   await axios.get(process.env.REACT_APP_BASE_API+"/api/getProductDetails/"+id)
    .then(async res=>{setProduct(res.data.data);setReview(res.data.data.reviews);})
    .catch(e=>console.log(e))
   },[])
@@ -52,7 +51,7 @@ const Productdetails = () => {
     e.preventDefault()
     let email=window.localStorage.getItem('email');
     let newReview={email:email,text:reviewText}
-    await axios.post("http://localhost:8888/api/addReview/"+id,{email:email,review:reviewText})
+    await axios.post(process.env.REACT_APP_BASE_API+"/api/addReview/"+id,{email:email,review:reviewText})
     .then(
       (res)=>
       {
@@ -70,8 +69,8 @@ const Productdetails = () => {
     //reenter stock on payment failing
     const reEnter=async () => {
       setStartPayment(false);
-      await axios.post("http://localhost:8888/api/addStock/"+id,{quantity:quantity})
-      await axios.get("http://localhost:8888/api/getProductDetails/"+id)
+      await axios.post(process.env.REACT_APP_BASE_API+"/api/addStock/"+id,{quantity:quantity})
+      await axios.get(process.env.REACT_APP_BASE_API+"/api/getProductDetails/"+id)
           .then(async res=>{setProduct(res.data.data);setReview(res.data.data.reviews)});
       
 
@@ -87,7 +86,7 @@ const Productdetails = () => {
 
       }
       else{
-        let res=await axios.post("http://localhost:8888/api/generateOrderId",{amount:quantity*product.price})
+        let res=await axios.post(process.env.REACT_APP_BASE_API+"/api/generateOrderId",{amount:quantity*product.price})
         let options={
         KEY_ID:"rzp_test_DnK1IvY3O5N98N",
         name:"ShopOnline",
@@ -96,7 +95,7 @@ const Productdetails = () => {
         handler: async function (response) {
           alert("Payment id:"+response.razorpay_payment_id)
           setStartPayment(false);
-          await axios.post("http://localhost:8888/api/addOrder",{paymentid:response.razorpay_payment_id,quantity:quantity,productId:id,productName:product.name,phone:window.localStorage.getItem('phone'),email:window.localStorage.getItem('email'),address:address})
+          await axios.post(process.env.REACT_APP_BASE_API+"/api/addOrder",{paymentid:response.razorpay_payment_id,quantity:quantity,productId:id,productName:product.name,phone:window.localStorage.getItem('phone'),email:window.localStorage.getItem('email'),address:address})
           .then(res=>console.log(res)).catch(err=>console.log(err))
           
         },
@@ -121,13 +120,13 @@ const Productdetails = () => {
         alert(response.error.metadata.order_id);
         alert(response.error.metadata.payment_id);
       });
-      await axios.post('http://localhost:8888/api/stockRemove/'+id,{quantity:quantity})
+      await axios.post(process.env.REACT_APP_BASE_API+"/api/stockRemove/"+id,{quantity:quantity})
       .then(async (res)=>{
         if(res.data.ans)
         { setStartPayment(true);
           
           rz.open();
-          await axios.get("http://localhost:8888/api/getProductDetails/"+id)
+          await axios.get(process.env.REACT_APP_BASE_API+"/getProductDetails/"+id)
           .then(async res=>{setProduct(res.data.data);setReview(res.data.data.reviews)});
         }
         else{
@@ -163,7 +162,7 @@ const Productdetails = () => {
       <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
       </svg>
       </p>
-      <Productimg src={"http://localhost:8888/"+product.images} />
+      <Productimg src={process.env.REACT_APP_BASE_API+"/"+product.images} />
       <p style={{alignSelf:'flex-start',fontSize:'30px',color:'#0fd43d'}}>{product.price}Rs.</p>
       <p style={{fontSize:'15px',alignSelf:'flex-start',color:'red'}}>FREE DELIVERY AT YOUR DOOR STEP!!!!!</p>
       <p style={{alignSelf:'start',fontSize:'15px'}}><b>Company Name:</b>{product.company}

@@ -4,15 +4,12 @@ import React,{useState,useEffect} from 'react'
 import AddProduct from "./components/AddProduct";
 import Footer from "./components/Footer";
 import ProductsTypes from "./components/ProductsTypes";
-// import Introduction from "./components/Introduction";
 import { BrowserRouter, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ProducsList from "./components/ProducsList";
 import Productdetails from "./components/Productdetails";
 import Slider from "./components/Slider";
-import Product from "./components/Product";
 import Sidemenu from "./components/Sidemenu";
 import NevigationMenu from "./components/NevigationMenu";
 import AddStock from "./components/AddStock";
@@ -24,25 +21,25 @@ import OrderStatus from "./components/OrderStatus";
 import UpdateUserRole from "./components/UpdateUserRole";
 import {Button} from 'react-bootstrap'
 
-export const AuthenticateContext=React.createContext();
-export const SetAuthenticatedContext=React.createContext();
 export const CartContext=React.createContext();
 
 
 function App() {
 
-  const [authenticate,setAuthenticate]=useState(false);
   const [cartLength,setCartLength]=useState(0);
   useEffect(async() =>{
+    console.log(process.env.REACT_APP_BASE_API)
+
     if(window.localStorage.getItem('email')!=null)
-    {
-      await axios.post("http://localhost:8888/api/getCart",{email:window.localStorage.getItem('email')})
+    { 
+      await axios.post(process.env.REACT_APP_BASE_API+"/api/getCart",{email:window.localStorage.getItem('email')})
       .then(res=>{
         if(res.data.ans)
         { 
           setCartLength(res.data.cart.length)
         }
         else{
+          
           alert("Unable to load cart please refresh try again!!!!!!!!!!")
         }
 
@@ -52,34 +49,9 @@ function App() {
 
 
 
-  if(window.localStorage.getItem('logged')==true)
-  {
-    setAuthenticate(true);
-  }
 
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      {/* <Introduction /> */}
-      
-     
-      {/* <Navigation /> */}
-
-      {/* <AuthenticateContext.Provider value={authenticate}>
-        <SetAuthenticatedContext.Provider value={setAuthenticate}> */}
     <CartContext.Provider value={setCartLength}>
       <BrowserRouter>
       <NevigationMenu style={{margin:'10px'}}/>
@@ -118,9 +90,6 @@ function App() {
         </Route>
         <Route exact path="/Productdetails/:id">
           <Productdetails />
-        </Route>
-        <Route exact path="/Product">
-          <Product />
         </Route>
         <Route exact path="/Sidemenu">
           <Sidemenu/>

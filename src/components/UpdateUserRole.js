@@ -10,7 +10,7 @@ const UpdateUserRole = () => {
     const [displayUsers,setDisplayUsers]=useState([]);
 
     useEffect(async ()=>{
-        await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        await axios.post(process.env.REACT_APP_BASE_API+"/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             
             if(res.data.ans)
@@ -35,12 +35,12 @@ const UpdateUserRole = () => {
 
     const makeAdmin=(e)=>{
         let id=e.target.id;
-        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"admin",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        axios.post(process.env.REACT_APP_BASE_API+"/api/updateRole",{id:id,role:"admin",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async (res)=>{
             if(res.data.ans)
             {
                 alert("Created admin successfully!");
-                await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+                await axios.post(process.env.REACT_APP_BASE_API+"/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                      .then(res=>{
                         if(res.data.ans)
                         {
@@ -60,12 +60,12 @@ const UpdateUserRole = () => {
     }
     const removeAdmin=(e)=>{
         let id=e.target.id;
-        axios.post("http://localhost:8888/api/updateRole",{id:id,role:"regular",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        axios.post(process.env.REACT_APP_BASE_API+"/api/updateRole",{id:id,role:"regular",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async (res)=>{
             if(res.data.ans)
             {
                 alert("Removed admin successfully!");
-                await axios.post("http://localhost:8888/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+                await axios.post(process.env.REACT_APP_BASE_API+"/api/allUsers",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             
             if(res.data.ans)
@@ -117,34 +117,7 @@ const UpdateUserRole = () => {
                         })
                     }
 
-                    <tr>
-                    <td>#</td>
-                    <td>User email</td>
-                    <td>firstname</td>
-                    <td>lastname</td>
-                    <td>Role</td>
-                    </tr>
-                    <tr>
-                    <td>#</td>
-                    <td>User email</td>
-                    <td>firstname</td>
-                    <td>lastname</td>
-                    <td>Role</td>
-                    </tr>
-                    <tr>
-                    <td>#</td>
-                    <td>User email</td>
-                    <td>firstname</td>
-                    <td>lastname</td>
-                    <td>Role</td>
-                    </tr>
-                    <tr>
-                    <td>#</td>
-                    <td>User email</td>
-                    <td>firstname</td>
-                    <td>lastname</td>
-                    <td>Role</td>
-                    </tr>
+                
                 </tbody>
 
             </Table>

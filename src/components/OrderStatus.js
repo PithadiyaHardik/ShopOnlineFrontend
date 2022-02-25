@@ -12,7 +12,7 @@ const OrderStatus = () => {
     const filterRef1=useRef(null);
     const filterRef2=useRef(null);
     useEffect(async()=>{
-        await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        await axios.get(process.env.REACT_APP_BASE_API+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             if(res.data.ans)
             {   
@@ -31,11 +31,11 @@ const OrderStatus = () => {
         let s=e.target.getAttribute("status");
         let id=e.target.id;
         if(s.toLowerCase()=="pending")
-        {   await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Dispatched",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        {   await axios.post(process.env.REACT_APP_BASE_API+"/api/updateStatus",{id:id,status:"Dispatched",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(async(res)=>{
             if(res.data.ans)
             {
-                await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+                await axios.get(process.env.REACT_APP_BASE_API+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                 .then(res=>{
                     if(res.data.ans)
                     {   
@@ -61,10 +61,10 @@ const OrderStatus = () => {
         }
         else if(s.toLowerCase()=="dispatched"){
 
-            await axios.post("http://localhost:8888/api/updateStatus",{id:id,status:"Delivered",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+            await axios.post(process.env.REACT_APP_BASE_API+"/api/updateStatus",{id:id,status:"Delivered",email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
             .then(async(res)=>{
                 if(res.data.ans)
-                {   await axios.get("http://localhost:8888/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+                {   await axios.get(process.env.REACT_APP_BASE_API+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
                 .then(res=>{
                     if(res.data.ans)
                     {   
@@ -76,10 +76,7 @@ const OrderStatus = () => {
                     }
         
                 }).catch(err=>{console.log(err)})
-                    // e.target.style.backgroundColor='#198754'
-                    // e.target.style.borderColor='#198754'
-                    // e.target.setAttribute("status","delivered");
-                    // e.target.innerHTML="Delivered";
+                   
                 }
                 else{
                     alert("Unable to update status due to some error!!!!!!!")
@@ -96,17 +93,10 @@ const OrderStatus = () => {
     }
 
     const filterHandler=()=>{
-        // let v1=filterRef1.current.value;
+        
         let v2=filterRef2.current.value;
         let a1,a2;
-        // if(v1=="all")
-        // {
-        //     a1=orders;
-        // }
-        // else{
-        //     a1=orders.filter(o=>o.category==v1)
-        // }
-
+        
         if(v2=="all")
         {
             a2=orders;
@@ -122,16 +112,7 @@ const OrderStatus = () => {
         <div style={{fontSize:"25px"}}>Order Delivery Status</div>
         <hr></hr>
         <Filters>
-            {/* <div>
-                <label style={{margin:'10px'}}>Category:</label>
-                <select ref={filterRef1} onChange={filterHandler} style={{margin:'15px',width:'200px'}} className='form-control'>
-                    <option value="all">All</option>
-                    <option value="Stationary">Stationary</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Clothing">Cloting</option>
-                </select>
-            </div> */}
+ 
             <div>
                 <label style={{margin:'10px'}}>Status:</label>
                 <select ref={filterRef2} onChange={filterHandler} style={{margin:'15px',width:'200px'}} className='form-control'>

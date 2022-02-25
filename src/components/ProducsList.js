@@ -13,7 +13,7 @@ const ProducsList = () => {
   const filterRef2=useRef(null)
 
   useEffect(async ()=>{
-      await axios.get("http://localhost:8888/api/allProduct").then(res=>{setProducts(res.data.data);setDisplayProduct(res.data.data)}).catch(e=>console.log(e))
+      await axios.get(process.env.REACT_APP_BASE_API+"/api/allProduct").then(res=>{setProducts(res.data.data);setDisplayProduct(res.data.data)}).catch(e=>console.log(e))
     
   },[])
 
@@ -69,7 +69,7 @@ const ProducsList = () => {
       {
         displayProduct.map(p=>{ return (
         <Productcontainer className='shadow'>
-        <img src={"http://localhost:8888/"+p.images} style={{height:'180px',width:'100%'}}></img>
+        <img src={process.env.REACT_APP_BASE_API+"/"+p.images} style={{height:'180px',width:'100%'}}></img>
         <p style={{fontSize:'15px'}}><b>Product Name:</b>{p.name}</p>
         <p style={{fontSize:'15px'}}><b>Category:</b>{p.category}</p>
         <p style={{fontSize:'15px'}}><b>Price</b>:{p.price}</p>
@@ -79,41 +79,6 @@ const ProducsList = () => {
         )})
       }
 
-      <Productcontainer className='shadow'>
-        <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
-        <h4>Product Name</h4>
-        <font>Category</font>
-        <font>Price</font>
-        <Button as={Link} to={'/Productdetails/'+'1'}>Buy Now</Button>
-      </Productcontainer>
-      <Productcontainer>
-      <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
-      <h4>Product Name</h4>
-      <font>Category</font>
-      <font>Price</font>
-      <Button>Buy Now</Button>
-    </Productcontainer>
-    <Productcontainer>
-    <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
-    <h4>Product Name</h4>
-    <font>Category</font>
-    <font>Price</font>
-    <Button>Buy Now</Button>
-  </Productcontainer>
-  <Productcontainer>
-  <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
-  <h4>Product Name</h4>
-  <font>Category</font>
-  <font>Price</font>
-  <Button>Buy Now</Button>
-</Productcontainer>
-<Productcontainer>
-  <img src={electronics} style={{height:'20vh',width:'100%'}}></img>
-  <h4>Product Name</h4>
-  <font>Category</font>
-  <font>Price</font>
-  <Button>Buy Now</Button>
-</Productcontainer>
 </Container>
 </>
       

@@ -11,13 +11,13 @@ const MyCart = () => {
   const [cart,setCart]=useState([])
   
   useEffect(async () => {
-    await axios.post("http://localhost:8888/api/getCart",{email:window.localStorage.getItem("email")})
+    await axios.post(process.env.REACT_APP_BASE_API+"/api/getCart",{email:window.localStorage.getItem("email")})
     .then(res=>setCart(res.data.cart)).catch(err=>console.log(err))
 
   },[])
 
   const removeFromCart=async(e)=> {
-    await axios.post("http://localhost:8888/api/removeFromCart/"+e.target.id,{email:window.localStorage.getItem("email")})
+    await axios.post(process.env.REACT_APP_BASE_API+"api/removeFromCart/"+e.target.id,{email:window.localStorage.getItem("email")})
     .then(res=>{
       if(res.data.ans)
       { 
@@ -44,7 +44,7 @@ const MyCart = () => {
             cart.map(product => {
               return(
                 <ProductContainer className='shadow'>
-                <center><img src={"http://localhost:8888/"+product.images} style={{height:'150px',width:'200px'}}/></center>
+                <center><img src={process.env.REACT_APP_BASE_API+"/"+product.images} style={{height:'150px',width:'200px'}}/></center>
                 <div style={{fontSize:'20px'}}>{product.name}</div>
                 {/* <div></div> */}
                 {product.stock>0?<div style={{fontSize:'20px',color:'green'}}>In the Stock</div>:<div style={{color:'red'}}>Out Of stock</div>}
@@ -56,16 +56,7 @@ const MyCart = () => {
               )
             })
           }
-            <ProductContainer className='shadow'>
-                <center><img src={i} style={{height:'150px',width:'200px'}}/></center>
-                <div>Product Name long name and this would be great</div>
-                <div>In the stock</div>
-                <div style={{display:'flex',flexDirection:'column'}}>
-                
-                <Button style={{margin:'2px'}}>Buy Now</Button>
-                <Button variant='danger' style={{margin:'2px'}}>Remove</Button>
-                </div>
-            </ProductContainer>
+           
            
             
         </Container>

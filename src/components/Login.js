@@ -6,10 +6,10 @@ import { Button, Form } from "react-bootstrap";
 import axios from 'axios';
 import img from "./logo.png";
 import {useHistory,Link} from 'react-router-dom'
-import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
+import {CartContext} from '../App.js'
 
 const Login = () => {
-  const setAuthenticatedContext=useContext(SetAuthenticatedContext)
+  const setCart=useContext(CartContext)
   const history=useHistory();
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
@@ -29,13 +29,12 @@ const Login = () => {
 
 
   const submitHandle = async () =>{
-      await axios.post('http://localhost:8888/api/login',{email:email,password:password}).then(res=>{
+    console.log(process.env.REACT_APP_BASE_API)
+      await axios.post(process.env.REACT_APP_BASE_API+'/api/login',{email:email,password:password}).then(async(res)=>{
         if(res.data.status)
         {
-          // window.sessionStorage.login=true
-          // window.location.href='/';
-          // window.localStorage.setItem("loggedin",true)
-          // setAuthenticatedContext(true);
+        
+        
           window.localStorage.setItem("email",email);
           window.localStorage.setItem("firstname",res.data.firstname);
           window.localStorage.setItem("lastname",res.data.lastname);
@@ -47,6 +46,17 @@ const Login = () => {
             window.localStorage.setItem('admin',res.data.password);
             window.localStorage.setItem('superadmin',res.data.password);
           }
+          await axios.post(process.env.REACT_APP_BASE_API+"/api/getCart",{email:window.localStorage.getItem('email')})
+          .then(res=>{
+            if(res.data.ans)
+            { 
+            setCart(res.data.cart.length)
+            }
+          else{
+            alert("Unable to load cart please refresh try again!!!!!!!!!!")
+                } 
+
+      })
           history.push("/")
         }
         else{

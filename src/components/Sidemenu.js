@@ -4,15 +4,15 @@ import { Link,useHistory} from "react-router-dom";
 import {Button} from 'react-bootstrap'
 import img from "./logo.png";
 import img2 from "./logo2.png";
-import {SetAuthenticatedContext,AuthenticateContext} from '../App.js'
+import {CartContext} from '../App.js'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 
 const Sidemenu = () => {
 
-    const setAuthenticatedContext=useContext(SetAuthenticatedContext)
-    const authenticate=useContext(AuthenticateContext)
+   
+    const setCart=useContext(CartContext)
     const [firstname,setFirstname]=useState();
     const [lastname,setLastname]=useState();
     const [admin,setAdmin]=useState();
@@ -56,6 +56,7 @@ const Sidemenu = () => {
 
     const history=useHistory();
     const logout=() => {
+        setCart(0);
         window.localStorage.clear();
         handleClick();
         history.push("/")

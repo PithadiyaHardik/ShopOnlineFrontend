@@ -6,7 +6,7 @@ const MyOrders = () => {
     const[orders,setOrders]=useState([]);
 
     useEffect(async ()=>{
-        await axios.post("http://localhost:8888/api/getUsersOrders",{email:window.localStorage.getItem('email')})
+        await axios.post(process.env.REACT_APP_BASE_API+"/api/getUsersOrders",{email:window.localStorage.getItem('email')})
         .then(res=>{
             if(res.data.ans)
             {   
