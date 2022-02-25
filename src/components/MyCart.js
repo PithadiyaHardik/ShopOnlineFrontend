@@ -17,7 +17,7 @@ const MyCart = () => {
   },[])
 
   const removeFromCart=async(e)=> {
-    await axios.post(process.env.REACT_APP_BASE_API+"api/removeFromCart/"+e.target.id,{email:window.localStorage.getItem("email")})
+    await axios.post(process.env.REACT_APP_BASE_API+"/api/removeFromCart/"+e.target.id,{email:window.localStorage.getItem("email")})
     .then(res=>{
       if(res.data.ans)
       { 
