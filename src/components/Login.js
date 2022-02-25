@@ -99,5 +99,5 @@ const Container = styled.div`
   align-items: center;
   padding: 10px;
   @media only screen and (max-width: 600px) {
-    width:50vw
+    width:80vw
 `;

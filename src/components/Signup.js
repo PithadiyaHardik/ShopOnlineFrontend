@@ -174,5 +174,5 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   @media only screen and (max-width: 600px) {
-    width:50vw
+    width:80vw
 `;
