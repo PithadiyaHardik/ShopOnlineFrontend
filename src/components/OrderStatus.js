@@ -13,7 +13,7 @@ const OrderStatus = () => {
     const filterRef2=useRef(null);
     useEffect(async()=>{
         // process.env.REACT_APP_BASE_API
-        await axios.post("http://localhost:8888"+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
+        await axios.post(process.env.REACT_APP_BASE_API+"/api/allOrders",{email:window.localStorage.getItem('email'),admin:window.localStorage.getItem('admin')})
         .then(res=>{
             if(res.data.ans)
             {   
