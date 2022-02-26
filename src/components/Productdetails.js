@@ -88,7 +88,7 @@ const Productdetails = () => {
       else{
         let res=await axios.post(process.env.REACT_APP_BASE_API+"/api/generateOrderId",{amount:quantity*product.price})
         let options={
-        KEY_ID:"rzp_test_DnK1IvY3O5N98N",
+        KEY_ID:process.env.REACR_APP_RAZOR_ID,
         name:"ShopOnline",
         description:"Poduct purchace",
         order_id: res.data.order.id,
